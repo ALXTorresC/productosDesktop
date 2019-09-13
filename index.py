@@ -8,6 +8,21 @@ import sqlite3
 
 class Product:
 
+    'Base de datos: database.db'
+    db_name = 'database.db'
+
+    def run_query(self, query, parameters = ()):
+        with sqlite3.connect(self.db_name) as conn:
+            cursor = conn.cursor()
+            resultado = cursor.execute(query, parameters)
+            conn.commit()
+        return resultado
+
+    def get_products(self):
+        query = 'SELECT * FROM product ORDER BY Nombre DESC'
+        filas_db = self.run_query(query)
+        print(filas_db)
+
     def __init__(self, window):
         self.wind = window
         self.wind.title = "Catalogo de productos."
@@ -35,6 +50,8 @@ class Product:
         self.tree.grid( row = 4, column = 0, columnspan = 2)
         self.tree.heading('#0', text="Nombre", anchor = CENTER)
         self.tree.heading('#1', text="Precio", anchor = CENTER)
+
+        self.get_products()
 
 if __name__=='__main__':
     window = Tk()
