@@ -20,14 +20,25 @@ class Product:
     def get_products(self):
         # Limpiando la tabla de datos
         records =self.tree.get_children()
-        for elements in records:
+        for element in records:
             self.tree.delete(element)
+            print(element)
         # Consultando los datos
         query = 'SELECT * FROM product ORDER BY Nombre DESC'
         filas_db = self.run_query(query)
         for fila in filas_db:
             self.tree.insert("", 0, text=fila[1], value=fila[2])
-        print(filas_db)
+            print(fila)
+
+    def validation(self):
+        return len(self.name.get()) != 0 and len(self.price.get()) != 0
+
+    def add_product(self):
+        if self.validation():
+            print(self.name.get())
+            print(self.price.get())
+        else:
+            print("El nombre y el precio son requeridos.")
 
     def __init__(self, window):
         self.wind = window
@@ -49,7 +60,7 @@ class Product:
         self.price.grid(row=2, column=1, padx=5)
 
         # Botón del formulario
-        ttk.Button(frame, text="Guardar producto").grid(row=3, pady=5, padx=5, columnspan=2, sticky = W + E)
+        ttk.Button(frame, text="Guardar producto", command = self.add_product()).grid(row=3, pady=5, padx=5, columnspan=2, sticky = W + E)
 
         # Arbol de vista
         self.tree = ttk.Treeview(height = 10, columns = 2)
