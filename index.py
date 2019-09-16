@@ -5,7 +5,6 @@ from tkinter import *
 
 import sqlite3
 
-
 class Product:
 
     'Base de datos: database.db'
@@ -19,8 +18,15 @@ class Product:
         return resultado
 
     def get_products(self):
+        # Limpiando la tabla de datos
+        records =self.tree.get_children()
+        for elements in records:
+            self.tree.delete(element)
+        # Consultando los datos
         query = 'SELECT * FROM product ORDER BY Nombre DESC'
         filas_db = self.run_query(query)
+        for fila in filas_db:
+            self.tree.insert("", 0, text=fila[1], value=fila[2])
         print(filas_db)
 
     def __init__(self, window):
