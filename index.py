@@ -34,6 +34,7 @@ class Product:
         return len(self.name.get()) != 0 and len(self.price.get()) != 0
 
     def add_product(self):
+        print(self.validation())
         if self.validation():
             print(self.name.get())
             print(self.price.get())
@@ -60,7 +61,7 @@ class Product:
         self.price.grid(row=2, column=1, padx=5)
 
         # Botón del formulario
-        ttk.Button(frame, text="Guardar producto", command = self.add_product()).grid(row=3, pady=5, padx=5, columnspan=2, sticky = W + E)
+        ttk.Button(frame, text="Guardar producto",command=self.add_product).grid(row=3, pady=5, padx=5, columnspan=2, sticky = W + E)
 
         # Arbol de vista
         self.tree = ttk.Treeview(height = 10, columns = 2)
