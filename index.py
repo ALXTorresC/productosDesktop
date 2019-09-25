@@ -100,8 +100,17 @@ class Product:
         ttk.Button(self.edit_window, text="Editar registro", command = lambda:self.edit_records(new_name.get(),name, new_price.get(), old_price)).grid(row=4,column=1,columnspan=2,pady=5, sticky=W+E)
 
     def edit_records(self,new_name, old_name, new_price, old_price):
-
         query = 'UPDATE product SET Nombre = ?, Precio = ? WHERE Nombre = ? AND Precio = ?'
+        new_name = new_name.lstrip()
+        new_name = new_name.rstrip()
+        new_price = new_price.lstrip()
+        new_price = new_price.rstrip()
+
+        if not new_name:
+            new_name = old_name
+        if not new_price:
+            new_price = old_price
+    
         parameters = (new_name, new_price, old_name, old_price)
         self.run_query(query, parameters)
         self.edit_window.destroy()

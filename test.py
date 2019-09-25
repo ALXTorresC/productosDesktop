@@ -14,7 +14,9 @@ for ratio in ( 0.2, 0.35 ):
 
 master = Tk()
 
-w = Canvas(master, width=canvas_width, height=canvas_height)
+w = Canvas(master,
+           width=canvas_width,
+           height=canvas_height)
 w.pack()
 
 for i in range(2):
